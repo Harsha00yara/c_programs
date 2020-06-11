@@ -1,0 +1,170 @@
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node* next;
+}*head,*temp,*prev;
+
+
+void print(struct node* head)
+{
+    temp=head;
+    while(temp!=NULL)
+    {
+        printf("%d->",temp->data);
+        temp=temp->next;
+    }
+    printf("null");
+}
+void insert()
+{   int d;
+    scanf("%d",&d);
+    struct node* newnode=NULL;
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=d;
+    newnode->next=NULL;
+    if(head==NULL)
+    {
+        head=newnode;
+    }
+    else
+    {
+       temp=head;
+       while(temp->next!=NULL)
+       {
+           temp=temp->next;
+       }
+       temp->next=newnode;
+    }
+    printf("inserted\n");
+    print(head);
+}
+void delete()
+{
+    temp=head;
+    while(temp->next!=NULL)
+    {   prev=temp;
+        temp=temp->next;
+    }
+    prev->next=NULL;
+    print(head);
+}
+void sort()
+{
+    int t;
+    temp=head;
+    while(temp!=NULL)
+    {
+        prev=temp->next;
+        while(prev!=NULL)
+        {
+        if(temp->data>prev->data)
+        {
+           t=prev->data;
+           prev->data=temp->data;
+           temp->data=t;
+        }
+        prev=prev->next;
+        }
+        temp=temp->next;
+       
+    }
+     print(head);
+}
+void insertm()
+{
+    int d,dd;
+    printf("Enter the el after");
+    scanf("%d",&d);
+    printf("Enter the new el");
+    scanf("%d",&dd);
+    struct node* new=NULL;
+    new =(struct node*)malloc (sizeof(struct node));
+    new->data=dd;
+    new->next=NULL;
+    temp=head;
+    while(temp->next!=NULL)
+    {
+        if(temp->data==d)
+        {
+            new->next=temp->next;
+            temp->next=new;
+        }
+        temp=temp->next;
+    }
+    print(head);
+}
+void deletef()
+{
+    temp=head->next;
+    head=temp;
+    print(head);
+}
+void insertf()
+{
+    int d;
+    scanf("%d",&d);
+    struct node* new=NULL;
+    new=(struct node*)malloc(sizeof(struct node));
+    new->data=d;
+    new->next=head;
+    head=new;
+    print(head);
+}
+void deletem()
+{
+    int d;
+    scanf("%d",&d);
+    temp=head;
+    prev=temp->next;
+    while(prev->next!=NULL)
+    {
+        if(prev->data==d)
+        {
+            temp->next=prev->next;
+            free(prev);
+        }
+        prev=prev->next;
+        temp=temp->next;
+    }
+    print(head);
+
+    
+}
+int main()
+{   int n;
+    
+   while(1) 
+   { printf("\n1.insert,2.delete,3.sort,4.exit,5.insertm,6.deletef,7.deletem,8.insertf");
+     scanf("%d",&n);
+    switch(n)
+    {
+        case 1:
+            insert();
+            break;
+        case 2:
+            delete();
+            break;
+        case 3:
+            sort();
+            break;
+        case 4:
+            exit(0);
+            break;
+        case 5:
+            insertm();
+            break;
+        case 6:
+            deletef();
+            break;
+        case 7:
+            deletem();
+            break;
+        case 8:
+            insertf();
+            break;
+    }
+   }
+}
